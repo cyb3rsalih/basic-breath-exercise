@@ -135,8 +135,10 @@ private struct RunningView: View {
                 Circle()
                     .fill((phase?.color ?? .gray).opacity(0.22))
                     .overlay(Circle().stroke(phase?.color ?? .gray, lineWidth: 3))
-                    .scaleEffect(circleScale)
-                    .animation(.easeInOut(duration: Double(phase?.duration ?? 1)), value: phase)
+                    // Animasyon yalnızca ölçeğe uygulanır; konum ve renk anında değişir.
+                    .animation(.easeInOut(duration: Double(phase?.duration ?? 1))) {
+                        $0.scaleEffect(circleScale)
+                    }
                 VStack(spacing: 2) {
                     Text("\(bigNumber)")
                         .font(.system(size: 44, weight: .bold, design: .rounded))
